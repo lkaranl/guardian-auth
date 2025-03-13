@@ -1,0 +1,52 @@
+{
+  "name": "guardian-auth-narak",
+  "version": "1.0.0",
+  "description": "Sistema encapsulado de autenticação para React com suporte a tema claro/escuro",
+  "main": "dist/index.js",
+  "module": "dist/index.esm.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "rollup -c",
+    "prepare": "npm run build"
+  },
+  "keywords": [
+    "react",
+    "authentication",
+    "auth",
+    "login",
+    "register",
+    "password-recovery",
+    "protected-routes",
+    "theme-toggle"
+  ],
+  "author": "Karan Luciano",
+  "license": "MIT",
+  "peerDependencies": {
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0",
+    "react-router-dom": "^6.0.0",
+    "axios": "^1.0.0"
+  },
+  "devDependencies": {
+    "@rollup/plugin-commonjs": "^25.0.0",
+    "@rollup/plugin-node-resolve": "^15.0.0",
+    "@rollup/plugin-babel": "^6.0.0",
+    "@rollup/plugin-terser": "^0.4.0",
+    "rollup": "^3.0.0",
+    "rollup-plugin-peer-deps-external": "^2.2.4",
+    "@babel/preset-react": "^7.0.0",
+    "@babel/preset-env": "^7.0.0",
+    "@babel/core": "^7.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/username/guardian-auth-react.git"
+  },
+  "bugs": {
+    "url": "https://github.com/username/guardian-auth-react/issues"
+  },
+  "homepage": "https://github.com/username/guardian-auth-react#readme"
+} 
