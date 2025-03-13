@@ -5,8 +5,70 @@
   box-sizing: border-box;
 }
 
-/* Variáveis de tema */
+/* Sistema de Design - Variáveis Globais */
 :root {
+  /* Sistema de Espaçamento */
+  --space-xs: 0.25rem;
+  --space-sm: 0.5rem;
+  --space-md: 1rem;
+  --space-lg: 1.5rem;
+  --space-xl: 2rem;
+  --space-2xl: 3rem;
+  --space-3xl: 4rem;
+  
+  /* Sistema de Bordas */
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-2xl: 24px;
+  
+  /* Sistema de Tipografia */
+  --font-size-xs: 0.75rem;
+  --font-size-sm: 0.875rem;
+  --font-size-md: 1rem;
+  --font-size-lg: 1.125rem;
+  --font-size-xl: 1.25rem;
+  --font-size-2xl: 1.5rem;
+  --font-size-3xl: 1.875rem;
+  --font-size-4xl: 2.25rem;
+  
+  /* Pesos da Fonte */
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+  
+  /* Famílias de Fonte */
+  --font-family-base: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  
+  /* Efeitos de Sombra */
+  --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1);
+  --shadow-md: 0 4px 8px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 8px 16px rgba(0, 0, 0, 0.1), 0 4px 8px rgba(0, 0, 0, 0.1);
+  --shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.1), 0 10px 10px rgba(0, 0, 0, 0.04);
+  
+  /* Transições */
+  --transition-fast: all 0.2s ease;
+  --transition-base: all 0.3s ease;
+  --transition-slow: all 0.5s ease;
+  --transition-bounce: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  
+  /* Opacidades */
+  --opacity-hover: 0.8;
+  --opacity-disabled: 0.6;
+  --opacity-subtle: 0.4;
+  
+  /* Sistema de Z-Index */
+  --z-base: 1;
+  --z-dropdown: 10;
+  --z-sticky: 100;
+  --z-fixed: 200;
+  --z-modal: 300;
+  --z-popover: 400;
+  --z-tooltip: 500;
+
   /* Tema claro (padrão) */
   --primary: #6366f1;
   --primary-hover: #4f46e5;
@@ -64,16 +126,23 @@
   --toggle-bg: rgba(255, 255, 255, 0.15);
   --toggle-shadow: rgba(0, 0, 0, 0.4);
   --highlight-bg: rgba(99, 102, 241, 0.15);
+  
+  /* Sombras para tema escuro */
+  --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.3);
+  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.3), 0 1px 2px rgba(0, 0, 0, 0.2);
+  --shadow-md: 0 4px 8px rgba(0, 0, 0, 0.4), 0 2px 4px rgba(0, 0, 0, 0.3);
+  --shadow-lg: 0 8px 16px rgba(0, 0, 0, 0.5), 0 4px 8px rgba(0, 0, 0, 0.3);
+  --shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.5), 0 10px 10px rgba(0, 0, 0, 0.2);
 }
 
 /* Estilos básicos para o corpo da página */
 body.guardian-auth-active {
   margin: 0;
   padding: 0;
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-family: var(--font-family-base);
   color: var(--text);
   background-color: var(--background);
-  transition: background-color 0.3s ease, color 0.3s ease;
+  transition: var(--transition-base);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -84,85 +153,85 @@ body.guardian-auth-active {
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  padding: 2rem;
+  padding: var(--space-xl);
 }
 
 /* Cartão de autenticação */
 .guardian-auth-card {
   background-color: var(--card-background);
-  border-radius: 16px;
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.07), 0 0 2px rgba(0, 0, 0, 0.03);
-  padding: 2.5rem;
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-xl);
+  padding: var(--space-2xl);
   width: 100%;
   max-width: 780px;
   margin: 0 auto;
-  transition: box-shadow 0.3s ease, background-color 0.3s ease;
+  transition: var(--transition-base);
 }
 
 [data-theme="dark"] .guardian-auth-card {
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3), 0 0 2px rgba(0, 0, 0, 0.1);
+  box-shadow: var(--shadow-xl);
 }
 
 .guardian-auth-card:hover {
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.1), 0 0 3px rgba(0, 0, 0, 0.05);
+  box-shadow: var(--shadow-xl);
 }
 
 [data-theme="dark"] .guardian-auth-card:hover {
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4), 0 0 3px rgba(0, 0, 0, 0.15);
+  box-shadow: var(--shadow-xl);
 }
 
 /* Header de autenticação */
 .guardian-auth-header {
   text-align: center;
-  margin-bottom: 2rem;
+  margin-bottom: var(--space-xl);
 }
 
 .guardian-auth-logo {
   width: 64px;
   height: 64px;
-  margin: 0 auto 1.5rem;
+  margin: 0 auto var(--space-lg);
 }
 
 .guardian-auth-title {
-  font-size: 1.75rem;
-  font-weight: 700;
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-bold);
   color: var(--text);
-  margin: 0 0 0.75rem;
+  margin: 0 0 var(--space-sm);
 }
 
 .guardian-auth-subtitle {
-  font-size: 1rem;
+  font-size: var(--font-size-md);
   color: var(--muted);
   margin: 0;
 }
 
 /* Campos de formulário */
 .guardian-auth-form-group {
-  margin-bottom: 1.5rem;
+  margin-bottom: var(--space-lg);
 }
 
 .guardian-auth-label {
   display: block;
-  margin-bottom: 0.5rem;
-  font-weight: 500;
+  margin-bottom: var(--space-sm);
+  font-weight: var(--font-weight-medium);
   color: var(--text);
 }
 
 .guardian-auth-input {
   width: 100%;
-  padding: 0.75rem 1rem;
-  border-radius: 8px;
+  padding: calc(var(--space-md) - 0.25rem) var(--space-md);
+  border-radius: var(--radius-md);
   border: 1px solid var(--border);
   background-color: var(--input-bg);
   color: var(--text);
-  font-size: 1rem;
-  transition: all 0.2s ease;
+  font-size: var(--font-size-md);
+  transition: var(--transition-fast);
 }
 
 .guardian-auth-input:focus {
   outline: none;
   border-color: var(--primary);
-  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+  box-shadow: 0 0 0 3px var(--primary-light);
   background-color: var(--card-background);
 }
 
@@ -174,36 +243,59 @@ body.guardian-auth-active {
 .guardian-auth-button {
   display: inline-block;
   width: 100%;
-  padding: 0.875rem 1.5rem;
-  background-color: var(--primary);
+  padding: calc(var(--space-md) - 0.125rem) var(--space-lg);
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-hover) 100%);
   color: white;
-  font-weight: 600;
-  font-size: 1rem;
+  font-weight: var(--font-weight-semibold);
+  font-size: var(--font-size-md);
   border: none;
-  border-radius: 8px;
+  border-radius: var(--radius-md);
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: var(--transition-bounce);
+  position: relative;
+  overflow: hidden;
+  z-index: var(--z-base);
+  box-shadow: var(--shadow-md);
+}
+
+.guardian-auth-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, var(--primary-hover) 0%, var(--secondary) 100%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: -1;
 }
 
 .guardian-auth-button:hover {
-  background-color: var(--primary-hover);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}
+
+.guardian-auth-button:hover::before {
+  opacity: 1;
 }
 
 .guardian-auth-button:active {
-  transform: scale(0.98);
+  transform: scale(0.98) translateY(0);
+  box-shadow: var(--shadow-sm);
 }
 
 /* Links */
 .guardian-auth-links {
-  margin-top: 1.5rem;
+  margin-top: var(--space-lg);
   text-align: center;
 }
 
 .guardian-auth-link {
   color: var(--primary);
   text-decoration: none;
-  font-weight: 500;
-  transition: all 0.2s ease;
+  font-weight: var(--font-weight-medium);
+  transition: var(--transition-fast);
 }
 
 .guardian-auth-link:hover {
@@ -213,10 +305,10 @@ body.guardian-auth-active {
 
 /* Mensagens de erro/sucesso */
 .guardian-auth-message {
-  padding: 0.75rem 1rem;
-  border-radius: 8px;
-  margin-bottom: 1.5rem;
-  font-size: 0.875rem;
+  padding: var(--space-sm) var(--space-md);
+  border-radius: var(--radius-md);
+  margin-bottom: var(--space-lg);
+  font-size: var(--font-size-sm);
 }
 
 .guardian-auth-message.error {
@@ -232,37 +324,37 @@ body.guardian-auth-active {
 /* Botão de tema */
 .ga-theme-toggle {
   position: fixed;
-  top: 12px;
-  right: 12px;
+  top: var(--space-md);
+  right: var(--space-md);
   background: transparent;
   border: none;
-  padding: 4px;
-  font-size: 14px;
+  padding: calc(var(--space-xs) / 2);
+  font-size: var(--font-size-sm);
   cursor: pointer;
-  opacity: 0.3;
-  transition: opacity 0.2s ease;
+  opacity: var(--opacity-subtle);
+  transition: var(--transition-fast);
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   width: 24px;
   height: 24px;
-  z-index: 9999;
+  z-index: var(--z-fixed);
 }
 
 .ga-theme-toggle:hover {
-  opacity: 0.7;
+  opacity: var(--opacity-hover);
   background: transparent;
 }
 
 /* Responsividade */
 @media (max-width: 640px) {
   .guardian-auth-card {
-    padding: 1.5rem;
+    padding: var(--space-lg);
   }
   
   .guardian-auth-title {
-    font-size: 1.5rem;
+    font-size: var(--font-size-xl);
   }
   
   .guardian-auth-logo {
