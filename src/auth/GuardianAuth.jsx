@@ -34,6 +34,24 @@ const GuardianAuth = ({ children, config = {} }) => {
     ...config
   };
 
+  // Aplicar cor primária personalizada, se fornecida
+  useEffect(() => {
+    if (appConfig.primaryColor) {
+      document.documentElement.style.setProperty('--primary', appConfig.primaryColor);
+      
+      // Cor para hover (ligeiramente mais escura)
+      const darkerColor = adjustColor(appConfig.primaryColor, -15);
+      document.documentElement.style.setProperty('--primary-hover', darkerColor);
+    }
+  }, [appConfig.primaryColor]);
+
+  // Função para ajustar a luminosidade de uma cor
+  const adjustColor = (color, amount) => {
+    return '#' + color.replace(/^#/, '').replace(/../g, color => 
+      ('0' + Math.min(255, Math.max(0, parseInt(color, 16) + amount)).toString(16)).substr(-2)
+    );
+  };
+
   return (
     <ThemeProvider>
       <Router>
@@ -58,9 +76,14 @@ const GuardianAuth = ({ children, config = {} }) => {
             />
             
             {/* Rotas protegidas da aplicação */}
-            <Route element={<ProtectedRoute />}>
-              {children}
-            </Route>
+            <Route 
+              path="/*" 
+              element={
+                <ProtectedRoute>
+                  {children}
+                </ProtectedRoute>
+              } 
+            />
             
             {/* Redirecionar rotas não encontradas para o login */}
             <Route path="*" element={<Navigate to={appConfig.routes.login} />} />
