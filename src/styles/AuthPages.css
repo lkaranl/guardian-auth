@@ -247,17 +247,31 @@ input:disabled {
   display: block;
   width: 100%;
   padding: 1.1rem;
-  background: linear-gradient(90deg, var(--primary) 0%, var(--primary-hover) 100%);
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-hover) 100%);
   color: #fff;
   font-weight: 600;
   border: none;
   border-radius: 12px;
   cursor: pointer;
   font-size: 1.2rem;
-  transition: all 0.3s;
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   position: relative;
   overflow: hidden;
   box-shadow: 0 6px 15px rgba(99, 102, 241, 0.3);
+  z-index: 1;
+}
+
+.btn-primary::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, var(--primary-hover) 0%, var(--secondary) 100%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: -1;
 }
 
 .btn-primary::after {
@@ -267,13 +281,17 @@ input:disabled {
   left: -100%;
   width: 100%;
   height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
   transition: 0.5s;
 }
 
 .btn-primary:hover {
-  box-shadow: 0 8px 25px rgba(99, 102, 241, 0.4);
+  box-shadow: 0 8px 25px rgba(99, 102, 241, 0.5);
   transform: translateY(-2px);
+}
+
+.btn-primary:hover::before {
+  opacity: 1;
 }
 
 .btn-primary:hover::after {
@@ -282,7 +300,8 @@ input:disabled {
 
 .btn-primary:active {
   transform: translateY(0);
-  box-shadow: 0 4px 10px rgba(99, 102, 241, 0.3);
+  box-shadow: 0 4px 8px rgba(99, 102, 241, 0.4);
+  filter: brightness(0.95);
 }
 
 .btn-primary:disabled {
@@ -461,18 +480,48 @@ input:disabled {
   padding: 0.8rem 1.5rem;
   border-radius: 12px;
   cursor: pointer;
-  transition: all 0.3s;
+  transition: all 0.3s ease;
   font-weight: 500;
   font-size: 1rem;
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.btn-logout::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(99, 102, 241, 0.08);
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.3s ease;
+  z-index: -1;
 }
 
 .btn-logout:hover {
-  background-color: rgba(0, 0, 0, 0.03);
-  border-color: var(--border-hover);
+  border-color: var(--primary);
+  color: var(--primary);
+  transform: translateY(-1px);
+}
+
+.btn-logout:hover::before {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+.btn-logout:active {
+  transform: translateY(0);
+  filter: brightness(0.95);
+  border-color: var(--primary-hover);
+  color: var(--primary-hover);
 }
 
 [data-theme="dark"] .btn-logout:hover {
-  background-color: rgba(255, 255, 255, 0.05);
+  background-color: rgba(255, 255, 255, 0.08);
 }
 
 .main-content {
@@ -685,40 +734,30 @@ input:disabled {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 4px;
-  width: 28px;
-  height: 28px;
+  padding: 8px;
+  width: 36px;
+  height: 36px;
   touch-action: manipulation;
   z-index: 2;
   -webkit-tap-highlight-color: transparent;
-  color: #555;
+  color: var(--muted);
   pointer-events: all;
-}
-
-.password-input-container {
-  position: relative;
-  display: flex;
-  align-items: center;
-  animation: fadeIn 0.4s ease-out;
-}
-
-.password-input-container input {
-  width: 100%;
-  padding-right: 3rem; /* Espaço suficiente para o botão */
-  position: relative;
-  z-index: 1;
+  border-radius: 50%;
+  transition: all 0.2s ease;
 }
 
 .password-toggle-btn:hover {
-  background: transparent;
+  background-color: rgba(99, 102, 241, 0.08);
+  color: var(--primary);
 }
 
 .password-toggle-btn:focus {
   outline: none;
+  box-shadow: 0 0 0 2px var(--primary-light);
 }
 
 .password-toggle-btn:active {
-  transform: translateY(-50%) scale(0.96);
+  transform: translateY(-50%) scale(0.92);
 }
 
 .password-toggle-btn:disabled {
@@ -886,4 +925,51 @@ input:disabled {
   height: 16px;
 }
 
-/* Continuação com outros ajustes para tema escuro */ 
+/* Continuação com outros ajustes para tema escuro */
+
+/* Atualizar os estilos para guardianAuth-button */
+.guardian-auth-button {
+  display: inline-block;
+  width: 100%;
+  padding: 0.875rem 1.5rem;
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-hover) 100%);
+  color: white;
+  font-weight: 600;
+  font-size: 1rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.25);
+}
+
+.guardian-auth-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, var(--primary-hover) 0%, var(--secondary) 100%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: -1;
+}
+
+.guardian-auth-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(99, 102, 241, 0.4);
+}
+
+.guardian-auth-button:hover::before {
+  opacity: 1;
+}
+
+.guardian-auth-button:active {
+  transform: scale(0.98) translateY(0);
+  box-shadow: 0 2px 8px rgba(99, 102, 241, 0.3);
+  filter: brightness(0.95);
+} 
