@@ -1,6 +1,6 @@
 {
   "name": "guardian-auth-narak",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "Sistema encapsulado de autenticação para React com suporte a tema claro/escuro",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
