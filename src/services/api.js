@@ -1,19 +1,16 @@
 import axios from 'axios';
 
-const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:3000';
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000';
 
 const createApiInstance = (config = {}) => {
-  // Detectar URL da API automaticamente com base na URL atual
-  // Se estiver em produção, assume que a API está na mesma origem
-  // Se estiver em desenvolvimento, usa localhost:3000
   const getDefaultBaseURL = () => {
     if (typeof window !== 'undefined') {
       // Em ambiente de produção, use a mesma origem
-      if (process.env.NODE_ENV === 'production') {
+      if (import.meta.env.PROD) {
         return window.location.origin;
       }
     }
-    // Em desenvolvimento, use localhost:3000
+    // Em desenvolvimento, use a URL da API configurada
     return API_URL;
   };
 
