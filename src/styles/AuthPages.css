@@ -530,7 +530,7 @@ input:disabled {
 }
 
 .login-left .auth-logo {
-  text-align: left;
+  text-align: center;
 }
 
 .auth-logo svg {
