@@ -63,7 +63,33 @@ export const AuthProvider = ({ children }) => {
       setLoading(true);
       setError(null);
       const response = await authService.login(credentials);
-      setUser({ authenticated: true });
+
+      // Só busca os dados do usuário se o login foi bem-sucedido
+      if (response.success) {
+        const userResponse = await fetch('/auth/profile', {
+          headers: {
+            Authorization: `Bearer ${authService.getToken()}`
+          }
+        });
+
+        if (!userResponse.ok) {
+          throw new Error('Falha ao buscar dados do usuário');
+        }
+
+        const userData = await userResponse.json();
+
+        if (userData.success) {
+          setUser({
+            ...userData.user,
+            authenticated: true
+          });
+        } else {
+          throw new Error(userData.message || 'Erro ao carregar perfil do usuário');
+        }
+      } else {
+        throw new Error(response.message || 'Falha na autenticação');
+      }
+
       return response;
     } catch (err) {
       setError(err.message || 'Erro ao fazer login');
@@ -153,4 +179,4 @@ export const AuthProvider = ({ children }) => {
   );
 };
 
-export default AuthProvider; 
+export default AuthProvider;
