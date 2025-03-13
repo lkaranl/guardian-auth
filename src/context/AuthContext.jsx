@@ -18,23 +18,30 @@ export const AuthProvider = ({ children }) => {
     const checkAuth = async () => {
       try {
         if (authService.isAuthenticated()) {
-          // Buscando informações do usuário através da rota /auth/profile
-          const response = await fetch('/auth/profile', {
+          // Adicionando verificação do tipo de conteúdo da resposta
+          const apiUrl = process.env.REACT_APP_API_URL || ''; // Configure essa variável de ambiente
+          const response = await fetch(`${apiUrl}/auth/profile`, {
             headers: {
-              Authorization: `Bearer ${authService.getToken()}`
+              'Accept': 'application/json',
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${authService.getToken()}`
             }
           });
           
-          debugger
+          // Verificar o tipo de conteúdo da resposta
+          const contentType = response.headers.get('content-type');
+          if (!contentType || !contentType.includes('application/json')) {
+            console.error('Resposta não é JSON:', await response.text());
+            throw new Error('Resposta do servidor não é JSON válido');
+          }
 
           if (!response.ok) {
-            throw new Error('Falha ao buscar dados do usuário');
+            throw new Error(`Erro ${response.status}: ${response.statusText}`);
           }
           
           const data = await response.json();
           
           if (data.success) {
-            // Definindo o usuário com os dados completos retornados pela API
             setUser({
               ...data.user,
               authenticated: true
