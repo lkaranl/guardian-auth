@@ -62,18 +62,32 @@ export const AuthProvider = ({ children }) => {
     try {
       setLoading(true);
       setError(null);
+      
       const response = await authService.login(credentials);
+      
+      // Verificar se a resposta é um objeto válido
+      if (typeof response !== 'object') {
+        throw new Error('Resposta inválida do servidor');
+      }
 
-      // Só busca os dados do usuário se o login foi bem-sucedido
+      // Verificar se o login foi bem-sucedido
       if (response.success) {
         const userResponse = await fetch('/auth/profile', {
           headers: {
-            Authorization: `Bearer ${authService.getToken()}`
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${authService.getToken()}`
           }
         });
 
+        // Verificar o tipo de conteúdo da resposta
+        const contentType = userResponse.headers.get('content-type');
+        if (!contentType || !contentType.includes('application/json')) {
+          throw new Error('Resposta do servidor não é JSON válido');
+        }
+
         if (!userResponse.ok) {
-          throw new Error('Falha ao buscar dados do usuário');
+          throw new Error(`Erro ${userResponse.status}: ${userResponse.statusText}`);
         }
 
         const userData = await userResponse.json();
@@ -92,6 +106,7 @@ export const AuthProvider = ({ children }) => {
 
       return response;
     } catch (err) {
+      console.error('Erro detalhado:', err);
       setError(err.message || 'Erro ao fazer login');
       throw err;
     } finally {
