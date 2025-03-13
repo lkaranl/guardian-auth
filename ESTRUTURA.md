@@ -22,7 +22,7 @@ guardian-auth/
 │   │   ├── api.js              # Cliente HTTP configurado
 │   │   └── authService.js      # Funções de autenticação
 │   ├── styles/            # Estilos CSS
-│   │   └── auth.css            # Estilos para componentes de autenticação
+│   │   └── AuthPages.css            # Estilos para componentes de autenticação
 │   ├── GuardianAuth.jsx   # Componente principal
 │   └── index.js           # Ponto de entrada (exports)
 ├── .gitignore             # Arquivos ignorados pelo Git

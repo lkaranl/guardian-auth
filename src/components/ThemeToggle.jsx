@@ -1,5 +1,5 @@
 import { useTheme, THEMES } from '../context/ThemeContext';
-import '../styles/auth.css';
+import '../styles/AuthPages.css';
 
 const ThemeToggle = () => {
   const { theme, toggleTheme } = useTheme();

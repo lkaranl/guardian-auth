@@ -1,17 +1,23 @@
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import '../styles/auth.css';
+import ThemeToggle from '../components/ThemeToggle';
+import '../styles/AuthPages.css';
 
-const Login = ({ appName = 'GuardianAuth', logo }) => {
+const Login = () => {
   const [formData, setFormData] = useState({
     email: '',
     password: ''
   });
   const [rememberMe, setRememberMe] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+  const [capsLockOn, setCapsLockOn] = useState(false);
   const [formError, setFormError] = useState('');
   const { login, loading } = useAuth();
+  const navigate = useNavigate();
+
+  // Nome do projeto obtido das variáveis de ambiente
+  const appName = import.meta.env.VITE_APP_NAME || 'Template React';
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -29,116 +35,174 @@ const Login = ({ appName = 'GuardianAuth', logo }) => {
     setShowPassword(!showPassword);
   };
 
+  // Função para detectar o Caps Lock
+  const detectCapsLock = (e) => {
+    setCapsLockOn(e.getModifierState('CapsLock'));
+  };
+
+  // Monitorar a tecla Caps Lock em toda a janela
+  useEffect(() => {
+    window.addEventListener('keydown', detectCapsLock);
+    window.addEventListener('keyup', detectCapsLock);
+    
+    // Verificar o status inicial do Caps Lock
+    if (typeof navigator.keyboard !== 'undefined' && typeof navigator.keyboard.getLayoutMap === 'function') {
+      navigator.keyboard.getLayoutMap().then(keyboardLayoutMap => {
+        if (keyboardLayoutMap.get('KeyA') === 'A') {
+          setCapsLockOn(true);
+        }
+      }).catch(err => {
+        console.log('Não foi possível determinar o estado inicial do Caps Lock:', err);
+      });
+    }
+
+    return () => {
+      window.removeEventListener('keydown', detectCapsLock);
+      window.removeEventListener('keyup', detectCapsLock);
+    };
+  }, []);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setFormError('');
 
-    try {
-      // Verificações básicas
-      if (!formData.email || !formData.password) {
-        setFormError('Por favor, preencha todos os campos');
-        return;
-      }
+    // Validação simples
+    if (!formData.email || !formData.password) {
+      setFormError('Por favor, preencha todos os campos.');
+      return;
+    }
 
-      // Chama o serviço de login com os dados do formulário e o estado de "lembrar-me"
+    try {
+      // Passa o formulário e a opção de lembrar-me
       await login({...formData, rememberMe});
       
-      // Verificar se existe uma URL para redirecionamento após login
+      // Verificar se existe uma URL de redirecionamento salva
       const redirectUrl = sessionStorage.getItem('redirectUrl');
-      if (redirectUrl) {
-        sessionStorage.removeItem('redirectUrl');
-        // O redirecionamento acontecerá automaticamente graças ao ProtectedRoute
-      }
+      
+      // Limpar a URL de redirecionamento da sessionStorage
+      sessionStorage.removeItem('redirectUrl');
+      
+      // Redirecionar para a URL salva ou para a página inicial
+      navigate(redirectUrl || '/');
     } catch (error) {
       console.error('Erro ao fazer login:', error);
-      setFormError(error.message || 'Erro ao fazer login. Verifique suas credenciais.');
+      setFormError(error.message || 'Falha na autenticação. Verifique suas credenciais.');
     }
   };
 
   return (
-    <div className="ga-auth-container">
-      <div className="ga-auth-card">
-        <div className="ga-auth-header">
-          {logo && <img src={logo} alt={`${appName} Logo`} className="ga-auth-logo" />}
-          <h1 className="ga-auth-title">Bem-vindo ao {appName}</h1>
-          <p className="ga-auth-subtitle">Entre com suas credenciais para continuar</p>
-        </div>
-
-        {formError && <div className="ga-error-message">{formError}</div>}
-
-        <form onSubmit={handleSubmit}>
-          <div className="ga-form-group">
-            <label htmlFor="email" className="ga-form-label">E-mail</label>
-            <input
-              type="email"
-              id="email"
-              name="email"
-              value={formData.email}
-              onChange={handleChange}
-              className="ga-form-input"
-              placeholder="seu@email.com"
-              disabled={loading}
-              autoFocus
-              required
-            />
-          </div>
-
-          <div className="ga-form-group">
-            <label htmlFor="password" className="ga-form-label">Senha</label>
-            <div style={{ position: 'relative' }}>
-              <input
-                type={showPassword ? "text" : "password"}
-                id="password"
-                name="password"
-                value={formData.password}
-                onChange={handleChange}
-                className="ga-form-input"
-                placeholder="Sua senha"
-                disabled={loading}
-                required
-              />
-              <button 
-                type="button" 
-                onClick={togglePasswordVisibility}
-                style={{
-                  position: 'absolute',
-                  right: '10px',
-                  top: '50%',
-                  transform: 'translateY(-50%)',
-                  background: 'none',
-                  border: 'none',
-                  cursor: 'pointer'
-                }}
-              >
-                {showPassword ? '👁️' : '👁️‍🗨️'}
-              </button>
+    <div className="auth-container">
+      <div className="auth-card">
+        <ThemeToggle />
+        <div className="login-form-wrapper">
+          <div className="login-left">
+            <div className="auth-logo">
+              <svg width="80" height="80" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="var(--primary)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                <path d="M12 15C13.6569 15 15 13.6569 15 12C15 10.3431 13.6569 9 12 9C10.3431 9 9 10.3431 9 12C9 13.6569 10.3431 15 12 15Z" stroke="var(--primary)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                <path d="M12 15V18" stroke="var(--primary)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                <path d="M12 9V6" stroke="var(--primary)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                <path d="M15 12H18" stroke="var(--primary)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                <path d="M9 12H6" stroke="var(--primary)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
             </div>
+            <h2>Bem-vindo ao {appName}</h2>
+            <p className="login-description">
+              Acesse sua conta para utilizar todos os recursos do sistema.
+            </p>
           </div>
-
-          <div className="ga-checkbox-wrapper">
-            <input
-              type="checkbox"
-              id="rememberMe"
-              checked={rememberMe}
-              onChange={handleCheckboxChange}
-              disabled={loading}
-              className="ga-checkbox"
-            />
-            <label htmlFor="rememberMe">Lembrar-me</label>
+          
+          <div className="login-right">
+            <h3>Entrar</h3>
+            
+            {formError && <div className="error-message">{formError}</div>}
+            
+            <form onSubmit={handleSubmit}>
+              <div className="form-group">
+                <label htmlFor="email">Email</label>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  placeholder="Seu email"
+                  disabled={loading}
+                  required
+                  autoFocus
+                />
+              </div>
+              
+              <div className="form-group">
+                <label htmlFor="password">Senha</label>
+                <div className="password-input-container">
+                  <input
+                    type={showPassword ? "text" : "password"}
+                    id="password"
+                    name="password"
+                    value={formData.password}
+                    onChange={handleChange}
+                    placeholder="Sua senha"
+                    disabled={loading}
+                    required
+                  />
+                  <button 
+                    type="button" 
+                    className="password-toggle-btn" 
+                    onClick={togglePasswordVisibility}
+                    disabled={loading}
+                    aria-label={showPassword ? "Ocultar senha" : "Mostrar senha"}
+                    title={showPassword ? "Ocultar senha" : "Mostrar senha"}
+                  >
+                    {showPassword ? (
+                      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path>
+                        <line x1="1" y1="1" x2="23" y2="23"></line>
+                      </svg>
+                    ) : (
+                      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                        <circle cx="12" cy="12" r="3"></circle>
+                      </svg>
+                    )}
+                  </button>
+                </div>
+                {capsLockOn && (
+                  <div className="caps-lock-warning">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path>
+                    </svg>
+                    <span>Caps Lock está ativado</span>
+                  </div>
+                )}
+              </div>
+              
+              <div className="form-checkbox">
+                <label className="toggle-switch-label">
+                  <input
+                    type="checkbox"
+                    checked={rememberMe}
+                    onChange={handleCheckboxChange}
+                    disabled={loading}
+                    className="toggle-switch-input"
+                  />
+                  <span className="toggle-switch"></span>
+                  <span className="checkbox-text">Manter conectado</span>
+                </label>
+              </div>
+              
+              <div className="form-actions">
+                <button type="submit" className="btn-primary" disabled={loading}>
+                  {loading ? 'Entrando...' : 'Entrar'}
+                </button>
+              </div>
+              
+              <div className="auth-links">
+                <Link to="/esqueci-senha">Esqueci minha senha</Link>
+                <Link to="/cadastro">Criar uma conta</Link>
+              </div>
+            </form>
           </div>
-
-          <button 
-            type="submit" 
-            className="ga-btn ga-btn-primary ga-btn-block"
-            disabled={loading}
-          >
-            {loading ? 'Entrando...' : 'Entrar'}
-          </button>
-        </form>
-
-        <div className="ga-auth-links">
-          <Link to="/esqueci-senha" className="ga-auth-link">Esqueci minha senha</Link>
-          <Link to="/cadastro" className="ga-auth-link">Criar conta</Link>
         </div>
       </div>
     </div>

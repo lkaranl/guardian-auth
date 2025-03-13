@@ -3,7 +3,10 @@ import commonjs from '@rollup/plugin-commonjs';
 import babel from '@rollup/plugin-babel';
 import terser from '@rollup/plugin-terser';
 import peerDepsExternal from 'rollup-plugin-peer-deps-external';
-import pkg from './package.json';
+import postcss from 'rollup-plugin-postcss';
+import { readFileSync } from 'fs';
+
+const pkg = JSON.parse(readFileSync(new URL('./package.json', import.meta.url)));
 
 export default {
   input: 'src/index.js',
@@ -21,6 +24,12 @@ export default {
   ],
   plugins: [
     peerDepsExternal(),
+    postcss({
+      extensions: ['.css'],
+      minimize: true,
+      inject: false,
+      extract: false,
+    }),
     resolve({
       extensions: ['.js', '.jsx'],
     }),
