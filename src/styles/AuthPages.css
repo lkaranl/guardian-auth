@@ -1,5 +1,6 @@
-/* Importar variáveis do sistema de design */
 @import './GuardianAuthStyles.css';
+
+/* Importar variáveis do sistema de design */
 
 /* Estilos para as páginas de autenticação */
 @keyframes fadeIn {
