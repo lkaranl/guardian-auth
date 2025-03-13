@@ -25,6 +25,8 @@ export const AuthProvider = ({ children }) => {
             }
           });
           
+          debugger
+
           if (!response.ok) {
             throw new Error('Falha ao buscar dados do usuário');
           }
