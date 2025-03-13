@@ -1,8 +1,22 @@
 import axios from 'axios';
 
 const createApiInstance = (config = {}) => {
+  // Detectar URL da API automaticamente com base na URL atual
+  // Se estiver em produção, assume que a API está na mesma origem
+  // Se estiver em desenvolvimento, usa localhost:3000
+  const getDefaultBaseURL = () => {
+    if (typeof window !== 'undefined') {
+      // Em ambiente de produção, use a mesma origem
+      if (process.env.NODE_ENV === 'production') {
+        return window.location.origin;
+      }
+    }
+    // Em desenvolvimento, use localhost:3000
+    return 'http://localhost:3000';
+  };
+
   const defaultConfig = {
-    baseURL: 'http://localhost:3000',
+    baseURL: getDefaultBaseURL(),
     ...config
   };
 

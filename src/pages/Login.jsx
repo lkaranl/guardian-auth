@@ -4,7 +4,7 @@ import { useAuth } from '../context/AuthContext';
 import ThemeToggle from '../components/ThemeToggle';
 import '../styles/AuthPages.css';
 
-const Login = () => {
+const Login = ({ appName: propAppName, logo: propLogo }) => {
   const [formData, setFormData] = useState({
     email: '',
     password: ''
@@ -16,8 +16,8 @@ const Login = () => {
   const { login, loading } = useAuth();
   const navigate = useNavigate();
 
-  // Nome do projeto obtido das variáveis de ambiente
-  const appName = import.meta.env.VITE_APP_NAME || 'Template React';
+  // Nome do app da prop ou do env
+  const appName = propAppName || import.meta.env.VITE_APP_NAME || 'GuardianAuth';
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -91,35 +91,39 @@ const Login = () => {
   };
 
   return (
-    <div className="auth-container">
-      <div className="auth-card">
+    <div className="auth-container guardian-auth-container">
+      <div className="auth-card guardian-auth-card">
         <ThemeToggle />
         <div className="login-form-wrapper">
           <div className="login-left">
-            <div className="auth-logo">
-              <svg width="80" height="80" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="var(--primary)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                <path d="M12 15C13.6569 15 15 13.6569 15 12C15 10.3431 13.6569 9 12 9C10.3431 9 9 10.3431 9 12C9 13.6569 10.3431 15 12 15Z" stroke="var(--primary)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                <path d="M12 15V18" stroke="var(--primary)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                <path d="M12 9V6" stroke="var(--primary)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                <path d="M15 12H18" stroke="var(--primary)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                <path d="M9 12H6" stroke="var(--primary)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-              </svg>
+            <div className="auth-logo guardian-auth-logo">
+              {propLogo ? (
+                <img src={propLogo} alt={`${appName} Logo`} />
+              ) : (
+                <svg width="80" height="80" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="var(--primary)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                  <path d="M12 15C13.6569 15 15 13.6569 15 12C15 10.3431 13.6569 9 12 9C10.3431 9 9 10.3431 9 12C9 13.6569 10.3431 15 12 15Z" stroke="var(--primary)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                  <path d="M12 15V18" stroke="var(--primary)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                  <path d="M12 9V6" stroke="var(--primary)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                  <path d="M15 12H18" stroke="var(--primary)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                  <path d="M9 12H6" stroke="var(--primary)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+              )}
             </div>
-            <h2>Bem-vindo ao {appName}</h2>
-            <p className="login-description">
+            <h2 className="guardian-auth-title">Bem-vindo ao {appName}</h2>
+            <p className="login-description guardian-auth-subtitle">
               Acesse sua conta para utilizar todos os recursos do sistema.
             </p>
           </div>
           
           <div className="login-right">
-            <h3>Entrar</h3>
+            <h3 className="guardian-auth-subtitle">Entrar</h3>
             
-            {formError && <div className="error-message">{formError}</div>}
+            {formError && <div className="error-message guardian-auth-message error">{formError}</div>}
             
             <form onSubmit={handleSubmit}>
-              <div className="form-group">
-                <label htmlFor="email">Email</label>
+              <div className="form-group guardian-auth-form-group">
+                <label htmlFor="email" className="guardian-auth-label">Email</label>
                 <input
                   type="email"
                   id="email"
@@ -130,11 +134,12 @@ const Login = () => {
                   disabled={loading}
                   required
                   autoFocus
+                  className="guardian-auth-input"
                 />
               </div>
               
-              <div className="form-group">
-                <label htmlFor="password">Senha</label>
+              <div className="form-group guardian-auth-form-group">
+                <label htmlFor="password" className="guardian-auth-label">Senha</label>
                 <div className="password-input-container">
                   <input
                     type={showPassword ? "text" : "password"}
@@ -145,6 +150,7 @@ const Login = () => {
                     placeholder="Sua senha"
                     disabled={loading}
                     required
+                    className="guardian-auth-input"
                   />
                   <button 
                     type="button" 
@@ -192,14 +198,14 @@ const Login = () => {
               </div>
               
               <div className="form-actions">
-                <button type="submit" className="btn-primary" disabled={loading}>
+                <button type="submit" className="btn-primary guardian-auth-button" disabled={loading}>
                   {loading ? 'Entrando...' : 'Entrar'}
                 </button>
               </div>
               
-              <div className="auth-links">
-                <Link to="/esqueci-senha">Esqueci minha senha</Link>
-                <Link to="/cadastro">Criar uma conta</Link>
+              <div className="auth-links guardian-auth-links">
+                <Link to="/esqueci-senha" className="guardian-auth-link">Esqueci minha senha</Link>
+                <Link to="/cadastro" className="guardian-auth-link">Criar uma conta</Link>
               </div>
             </form>
           </div>

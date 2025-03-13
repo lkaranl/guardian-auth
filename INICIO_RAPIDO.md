@@ -10,9 +10,42 @@ Para começar, você precisa instalar o pacote em seu projeto React:
 npm install guardian-auth-react
 ```
 
-## Passo 2: Configurar o App.jsx
+## Passo 2: Importar os Estilos CSS
 
-Modifique seu arquivo `App.jsx` para usar o componente `GuardianAuth`:
+Este passo é **OBRIGATÓRIO** para que a biblioteca funcione corretamente com toda a estilização:
+
+```jsx
+// No arquivo principal da sua aplicação (App.js ou index.js)
+import 'guardian-auth-react/dist/guardian-auth.css';
+```
+
+## Passo 3: Configurar o App.jsx (Método Simples)
+
+O método mais simples é usar o componente `GuardianAuth` sem configuração:
+
+```jsx
+import React from 'react';
+import { Route } from 'react-router-dom';
+import GuardianAuth from 'guardian-auth-react';
+import 'guardian-auth-react/dist/guardian-auth.css'; // Importação obrigatória dos estilos
+import Dashboard from './pages/Dashboard';
+
+function App() {
+  return (
+    <GuardianAuth>
+      {/* Suas rotas protegidas aqui */}
+      <Route path="/" element={<Dashboard />} />
+      <Route path="/perfil" element={<PerfilUsuario />} />
+    </GuardianAuth>
+  );
+}
+
+export default App;
+```
+
+## Método Alternativo (Com Configuração)
+
+Se precisar de personalização, você também pode usar o método com configuração:
 
 ```jsx
 import React from 'react';
@@ -38,7 +71,7 @@ function App() {
 export default App;
 ```
 
-## Passo 3: Acessar o Estado de Autenticação
+## Passo 4: Acessar o Estado de Autenticação
 
 Para acessar o estado de autenticação em seus componentes:
 
@@ -62,7 +95,7 @@ function MinhaPagina() {
 export default MinhaPagina;
 ```
 
-## Passo 4: Personalizar o Tema
+## Passo 5: Personalizar o Tema
 
 Para acessar e alternar o tema em seus componentes:
 
@@ -83,7 +116,7 @@ function BotaoTema() {
 export default BotaoTema;
 ```
 
-## Passo 5: Personalizar as Rotas (Opcional)
+## Passo 6: Personalizar as Rotas (Opcional)
 
 Você pode personalizar os caminhos das rotas de autenticação:
 
@@ -102,7 +135,7 @@ Você pode personalizar os caminhos das rotas de autenticação:
 </GuardianAuth>
 ```
 
-## Passo 6: Configurar o Backend
+## Passo 7: Configurar o Backend
 
 O GuardianAuth espera um backend com as seguintes rotas:
 

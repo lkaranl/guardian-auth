@@ -1,0 +1,222 @@
+/* GuardianAuth - Estilos Globais */
+
+/* Reset básico */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+/* Variáveis de tema */
+:root {
+  /* Tema claro (padrão) */
+  --primary: #6366f1;
+  --primary-hover: #4f46e5;
+  --success: #22c55e;
+  --error: #ef4444;
+  --background: #f8fafc;
+  --card-background: #ffffff;
+  --text: #1e293b;
+  --muted: #64748b;
+  --border: rgba(0, 0, 0, 0.08);
+  --border-hover: rgba(0, 0, 0, 0.15);
+  --input-bg: rgba(0, 0, 0, 0.01);
+  --shadow-color: rgba(0, 0, 0, 0.08);
+  --shadow-color-hover: rgba(0, 0, 0, 0.12);
+  --toggle-bg: rgba(0, 0, 0, 0.15);
+  --toggle-shadow: rgba(0, 0, 0, 0.2);
+}
+
+/* Tema escuro */
+[data-theme="dark"] {
+  --primary: #818cf8;
+  --primary-hover: #6366f1;
+  --background: #0f172a;
+  --card-background: #1e293b;
+  --text: #f1f5f9;
+  --muted: #94a3b8;
+  --border: rgba(255, 255, 255, 0.1);
+  --border-hover: rgba(255, 255, 255, 0.2);
+  --input-bg: rgba(255, 255, 255, 0.03);
+  --shadow-color: rgba(0, 0, 0, 0.3);
+  --shadow-color-hover: rgba(0, 0, 0, 0.4);
+  --toggle-bg: rgba(255, 255, 255, 0.15);
+  --toggle-shadow: rgba(0, 0, 0, 0.4);
+}
+
+/* Estilos básicos para o corpo da página */
+body.guardian-auth-active {
+  margin: 0;
+  padding: 0;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  color: var(--text);
+  background-color: var(--background);
+  transition: background-color 0.3s ease, color 0.3s ease;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Estilo base para contêineres de autenticação */
+.guardian-auth-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 2rem;
+}
+
+/* Cartão de autenticação */
+.guardian-auth-card {
+  background-color: var(--card-background);
+  border-radius: 16px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.07), 0 0 2px rgba(0, 0, 0, 0.03);
+  padding: 2.5rem;
+  width: 100%;
+  max-width: 480px;
+  margin: 0 auto;
+  transition: box-shadow 0.3s ease, background-color 0.3s ease;
+}
+
+[data-theme="dark"] .guardian-auth-card {
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3), 0 0 2px rgba(0, 0, 0, 0.1);
+}
+
+.guardian-auth-card:hover {
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.1), 0 0 3px rgba(0, 0, 0, 0.05);
+}
+
+[data-theme="dark"] .guardian-auth-card:hover {
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4), 0 0 3px rgba(0, 0, 0, 0.15);
+}
+
+/* Header de autenticação */
+.guardian-auth-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.guardian-auth-logo {
+  width: 64px;
+  height: 64px;
+  margin: 0 auto 1.5rem;
+}
+
+.guardian-auth-title {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--text);
+  margin: 0 0 0.75rem;
+}
+
+.guardian-auth-subtitle {
+  font-size: 1rem;
+  color: var(--muted);
+  margin: 0;
+}
+
+/* Campos de formulário */
+.guardian-auth-form-group {
+  margin-bottom: 1.5rem;
+}
+
+.guardian-auth-label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  color: var(--text);
+}
+
+.guardian-auth-input {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background-color: var(--input-bg);
+  color: var(--text);
+  font-size: 1rem;
+  transition: all 0.2s ease;
+}
+
+.guardian-auth-input:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+  background-color: var(--card-background);
+}
+
+.guardian-auth-input:hover:not(:focus):not(:disabled) {
+  border-color: var(--border-hover);
+}
+
+/* Botões */
+.guardian-auth-button {
+  display: inline-block;
+  width: 100%;
+  padding: 0.875rem 1.5rem;
+  background-color: var(--primary);
+  color: white;
+  font-weight: 600;
+  font-size: 1rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.guardian-auth-button:hover {
+  background-color: var(--primary-hover);
+}
+
+.guardian-auth-button:active {
+  transform: scale(0.98);
+}
+
+/* Links */
+.guardian-auth-links {
+  margin-top: 1.5rem;
+  text-align: center;
+}
+
+.guardian-auth-link {
+  color: var(--primary);
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.guardian-auth-link:hover {
+  color: var(--primary-hover);
+  text-decoration: underline;
+}
+
+/* Mensagens de erro/sucesso */
+.guardian-auth-message {
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  margin-bottom: 1.5rem;
+  font-size: 0.875rem;
+}
+
+.guardian-auth-message.error {
+  background-color: rgba(239, 68, 68, 0.1);
+  color: var(--error);
+}
+
+.guardian-auth-message.success {
+  background-color: rgba(34, 197, 94, 0.1);
+  color: var(--success);
+}
+
+/* Responsividade */
+@media (max-width: 640px) {
+  .guardian-auth-card {
+    padding: 1.5rem;
+  }
+  
+  .guardian-auth-title {
+    font-size: 1.5rem;
+  }
+  
+  .guardian-auth-logo {
+    width: 48px;
+    height: 48px;
+  }
+} 

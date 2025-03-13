@@ -25,8 +25,7 @@ export default {
   plugins: [
     peerDepsExternal(),
     postcss({
-      extensions: ['.css'],
-      minimize: true,
+      // Ignorar importações de CSS no build do JS
       inject: false,
       extract: false,
     }),

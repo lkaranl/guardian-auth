@@ -6,11 +6,22 @@
   "module": "dist/index.esm.js",
   "type": "module",
   "types": "dist/index.d.ts",
+  "style": "dist/guardian-auth.css",
+  "exports": {
+    ".": {
+      "import": "./dist/index.esm.js",
+      "require": "./dist/index.js"
+    },
+    "./dist/guardian-auth.css": "./dist/guardian-auth.css"
+  },
   "files": [
-    "dist"
+    "dist",
+    "dist/guardian-auth.css"
   ],
   "scripts": {
-    "build": "rollup -c",
+    "build": "rollup -c && node scripts/build-css.js",
+    "build:js": "rollup -c",
+    "build:css": "node scripts/build-css.js",
     "prepare": "npm run build"
   },
   "keywords": [

@@ -21,7 +21,37 @@ npm install --save guardian-auth-react
 ✅ Totalmente customizável  
 ✅ Zero configuração necessária  
 
-## Uso
+## Uso Simplificado (Recomendado)
+
+```jsx
+import React from 'react'
+import { Route } from 'react-router-dom'
+import GuardianAuth from 'guardian-auth-react'
+import 'guardian-auth-react/dist/guardian-auth.css'
+import Dashboard from './pages/Dashboard'
+
+function App() {
+  return (
+    <GuardianAuth>
+      <Route path="/" element={<Dashboard />} />
+      {/* Suas outras rotas protegidas aqui */}
+    </GuardianAuth>
+  )
+}
+```
+
+## Importante: Importação dos Estilos CSS
+
+Para que a biblioteca funcione corretamente com toda a estilização, é **necessário** importar o arquivo CSS:
+
+```jsx
+// No arquivo principal da sua aplicação (App.js ou index.js)
+import 'guardian-auth-react/dist/guardian-auth.css'
+```
+
+Sem essa importação, os componentes aparecerão sem estilização.
+
+## Uso Avançado (Com Configuração)
 
 ```jsx
 import React from 'react'
@@ -53,7 +83,7 @@ O GuardianAuth atua como um gateway para sua aplicação:
 3. Após a autenticação, permite acesso às rotas da aplicação
 4. Gerencia o tema claro/escuro automaticamente
 
-## Configuração
+## Configuração (Opcional)
 
 O componente GuardianAuth aceita um objeto de configuração com as seguintes opções:
 
