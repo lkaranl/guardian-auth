@@ -9,11 +9,12 @@ const SimpleGuardianAuth = ({ children }) => (
 );
 
 export { 
-  GuardianAuth as SimpleGuardianAuth, // Renomeado para evitar conflitos
+  GuardianAuth,       // Versão configurável (legado)
+  SimpleGuardianAuth, // Versão simples sem configuração (nova)
   useAuth,
   useTheme, 
   THEMES 
 };
 
-// Exportação padrão é a versão configurável
-export default GuardianAuth; 
+// Exportação padrão é a versão simplificada
+export default SimpleGuardianAuth; 
