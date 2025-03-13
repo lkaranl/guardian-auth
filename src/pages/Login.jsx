@@ -116,9 +116,7 @@ const Login = ({ appName: propAppName, logo: propLogo }) => {
             </p>
           </div>
           
-          <div className="login-right">
-            <h3 className="guardian-auth-subtitle">Entrar</h3>
-            
+          <div className="login-right">            
             {formError && <div className="error-message guardian-auth-message error">{formError}</div>}
             
             <form onSubmit={handleSubmit}>
