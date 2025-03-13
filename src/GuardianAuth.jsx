@@ -25,18 +25,16 @@ import { useEffect } from 'react';
 const GuardianAuth = ({ children, config = {} }) => {
   // Configuração com valores padrão
   const appConfig = {
-    appName: 'GuardianAuth',
-    logo: null,
-    primaryColor: '#4F46E5',
+    appName: config.appName || 'GuardianAuth',
+    logo: config.logo || null,
+    primaryColor: config.primaryColor || '#4F46E5',
     routes: {
-      login: '/login',
-      register: '/cadastro',
-      forgotPassword: '/esqueci-senha',
-      resetPassword: '/redefinir-senha',
-      home: '/',
+      login: config.loginPath || '/login',
+      register: config.registerPath || '/cadastro',
+      forgotPassword: config.forgotPasswordPath || '/esqueci-senha',
+      resetPassword: config.resetPasswordPath || '/redefinir-senha',
+      home: config.homePath || '/',
     },
-    // Mesclar com configurações personalizadas, se fornecidas
-    ...config
   };
 
   // Aplicar cor primária personalizada, se fornecida
