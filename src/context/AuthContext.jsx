@@ -18,14 +18,35 @@ export const AuthProvider = ({ children }) => {
     const checkAuth = async () => {
       try {
         if (authService.isAuthenticated()) {
-          // Aqui você pode adicionar lógica para buscar informações do usuário
-          // Por exemplo, através de uma rota /auth/profile
-          // Por enquanto, apenas definimos que o usuário está autenticado
-          setUser({ authenticated: true });
+          // Buscando informações do usuário através da rota /auth/profile
+          const response = await fetch('/auth/profile', {
+            headers: {
+              Authorization: `Bearer ${authService.getToken()}`
+            }
+          });
+          
+          if (!response.ok) {
+            throw new Error('Falha ao buscar dados do usuário');
+          }
+          
+          const data = await response.json();
+          
+          if (data.success) {
+            // Definindo o usuário com os dados completos retornados pela API
+            setUser({
+              ...data.user,
+              authenticated: true
+            });
+          } else {
+            throw new Error(data.message || 'Erro ao carregar perfil do usuário');
+          }
         }
       } catch (err) {
         console.error('Erro ao verificar autenticação:', err);
         setError('Erro ao verificar autenticação');
+        // Em caso de erro com o token, faça logout
+        authService.logout();
+        setUser(null);
       } finally {
         setLoading(false);
       }
