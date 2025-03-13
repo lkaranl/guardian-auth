@@ -92,19 +92,28 @@ const Login = ({ appName: propAppName, logo: propLogo }) => {
 
   return (
     <div className="auth-container guardian-auth-container">
-      <ThemeToggle />
       <div className="auth-card guardian-auth-card">
-        <div className="auth-content">
+        <ThemeToggle />
+        <div className="login-form-wrapper">
           <div className="login-left">
-            <div className="auth-header guardian-auth-header">
+            <div className="auth-logo guardian-auth-logo">
               {propLogo ? (
-                <img src={propLogo} alt={appName} className="auth-logo guardian-auth-logo" />
-              ) : null}
-              <h2 className="auth-title guardian-auth-title">Bem-vindo ao {appName}</h2>
-              <p className="auth-subtitle guardian-auth-subtitle">
-                Faça login para continuar
-              </p>
+                <img src={propLogo} alt={`${appName} Logo`} />
+              ) : (
+                <svg width="80" height="80" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="var(--primary)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                  <path d="M12 15C13.6569 15 15 13.6569 15 12C15 10.3431 13.6569 9 12 9C10.3431 9 9 10.3431 9 12C9 13.6569 10.3431 15 12 15Z" stroke="var(--primary)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                  <path d="M12 15V18" stroke="var(--primary)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                  <path d="M12 9V6" stroke="var(--primary)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                  <path d="M15 12H18" stroke="var(--primary)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                  <path d="M9 12H6" stroke="var(--primary)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+              )}
             </div>
+            <h2 className="guardian-auth-title">Bem-vindo ao {appName}</h2>
+            <p className="login-description guardian-auth-subtitle">
+              Acesse sua conta para utilizar todos os recursos do sistema.
+            </p>
           </div>
           
           <div className="login-right">
