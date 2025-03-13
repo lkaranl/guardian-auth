@@ -1105,4 +1105,37 @@ input:focus-visible,
 a:focus-visible {
   outline: 2px solid var(--primary);
   outline-offset: 2px;
+}
+
+/* Botão de tema discreto */
+.ga-theme-toggle {
+  position: fixed;
+  top: var(--space-md);
+  right: var(--space-md);
+  background: transparent;
+  border: none;
+  padding: calc(var(--space-xs) / 2);
+  font-size: var(--font-size-sm);
+  cursor: pointer;
+  opacity: 0.3;
+  transition: var(--transition-fast);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  z-index: var(--z-fixed);
+  color: var(--text);
+}
+
+.ga-theme-toggle:hover {
+  opacity: 0.7;
+  background: transparent;
+}
+
+.ga-theme-toggle svg {
+  width: 16px;
+  height: 16px;
+  stroke: currentColor;
 } 
