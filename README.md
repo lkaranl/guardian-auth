@@ -1,172 +1,134 @@
-# GuardianAuth React
+# GuardianAuth
 
-> Sistema encapsulado de autenticação para React com suporte a tema claro/escuro
+Sistema de autenticação encapsulado para React, com design moderno e responsivo.
 
-[![NPM](https://img.shields.io/npm/v/guardian-auth-react.svg)](https://www.npmjs.com/package/guardian-auth-react)
-
-## Instalação
+## 🚀 Instalação
 
 ```bash
-npm install --save guardian-auth-react
+npm install guardian-auth-narak
 ```
 
-## Recursos
+## 📋 Uso Básico
 
-✅ Sistema completo de autenticação encapsulado  
-✅ Login/Logout  
-✅ Cadastro de usuários  
-✅ Recuperação de senha  
-✅ Proteção de rotas  
-✅ Tema claro/escuro automático  
-✅ Totalmente customizável  
-✅ Zero configuração necessária  
-
-## Uso Simplificado (Recomendado)
+1. Primeiro, importe o componente e os estilos necessários:
 
 ```jsx
-import React from 'react'
-import { Route } from 'react-router-dom'
-import GuardianAuth from 'guardian-auth-react'
-import 'guardian-auth-react/dist/guardian-auth.css'
-import Dashboard from './pages/Dashboard'
+import { GuardianAuth } from 'guardian-auth-narak';
+import 'guardian-auth-narak/dist/guardian-auth.css'; // Importante: importe os estilos
+```
 
+2. Envolva sua aplicação com o componente GuardianAuth:
+
+```jsx
 function App() {
   return (
-    <GuardianAuth>
-      <Route path="/" element={<Dashboard />} />
-      {/* Suas outras rotas protegidas aqui */}
-    </GuardianAuth>
-  )
-}
-```
-
-## Importante: Importação dos Estilos CSS
-
-Para que a biblioteca funcione corretamente com toda a estilização, é **necessário** importar o arquivo CSS:
-
-```jsx
-// No arquivo principal da sua aplicação (App.js ou index.js)
-import 'guardian-auth-react/dist/guardian-auth.css'
-```
-
-Sem essa importação, os componentes aparecerão sem estilização.
-
-## Uso Avançado (Com Configuração)
-
-```jsx
-import React from 'react'
-import { Route } from 'react-router-dom'
-import { GuardianAuth } from 'guardian-auth-react'
-import Dashboard from './pages/Dashboard'
-
-function App() {
-  return (
-    <GuardianAuth 
+    <GuardianAuth
       config={{
-        appName: 'Minha Aplicação', 
-        logo: '/logo.png'
+        appName: 'Minha Aplicação',  // Nome que aparecerá nas telas de login
+        // Outras configurações opcionais
       }}
     >
-      <Route path="/" element={<Dashboard />} />
-      {/* Suas outras rotas protegidas aqui */}
+      {/* Suas rotas protegidas aqui */}
+      <Route path="/" element={<Home />} />
+      <Route path="/dashboard" element={<Dashboard />} />
     </GuardianAuth>
-  )
+  );
 }
 ```
 
-## Como funciona
-
-O GuardianAuth atua como um gateway para sua aplicação:
-
-1. Quando um usuário não está autenticado, ele exibe automaticamente a tela de login
-2. Oferece rotas para cadastro e recuperação de senha
-3. Após a autenticação, permite acesso às rotas da aplicação
-4. Gerencia o tema claro/escuro automaticamente
-
-## Configuração (Opcional)
-
-O componente GuardianAuth aceita um objeto de configuração com as seguintes opções:
+## ⚙️ Configurações Disponíveis
 
 ```jsx
 <GuardianAuth
   config={{
-    // Nome da aplicação (exibido nas telas de login)
+    // Nome da aplicação (mostrado nas telas de login)
     appName: 'Minha Aplicação',
     
-    // URL para o logo da aplicação
-    logo: '/caminho/para/logo.png',
+    // Logo personalizada (opcional)
+    logo: 'url-da-sua-logo',
     
-    // Caminhos personalizados para as rotas de autenticação
+    // Cor primária personalizada (opcional)
+    primaryColor: '#4F46E5',
+    
+    // Personalização de rotas (opcional)
     loginPath: '/login',
     registerPath: '/cadastro',
     forgotPasswordPath: '/esqueci-senha',
     resetPasswordPath: '/redefinir-senha',
-    
-    // Caminho padrão após login bem-sucedido
     homePath: '/',
-    
-    // Cor primária para botões e elementos de destaque
-    primaryColor: '#007bff'
   }}
 >
-  {/* Suas rotas protegidas */}
+  {/* Conteúdo da aplicação */}
 </GuardianAuth>
 ```
 
-## Acessando funções de autenticação
+## 🔒 Acessando o Estado de Autenticação
 
-Para acessar o estado e as funções de autenticação em seus componentes:
+Use o hook `useAuth` para acessar o estado de autenticação e funções relacionadas:
 
 ```jsx
-import { useAuth } from 'guardian-auth-react'
+import { useAuth } from 'guardian-auth-narak';
 
 function MeuComponente() {
-  const { user, isAuthenticated, loading, logout } = useAuth()
-  
-  if (loading) return <div>Carregando...</div>
+  const { user, logout } = useAuth();
   
   return (
     <div>
-      {isAuthenticated ? (
-        <>
-          <h1>Bem-vindo, {user.email}</h1>
-          <button onClick={logout}>Sair</button>
-        </>
-      ) : (
-        <p>Você não está autenticado</p>
-      )}
+      <p>Bem-vindo, {user.name}!</p>
+      <button onClick={logout}>Sair</button>
     </div>
-  )
+  );
 }
 ```
 
-## Tema claro/escuro
+## 🎨 Temas
 
-O GuardianAuth inclui um sistema completo de tema claro/escuro. Para acessar e modificar o tema:
+O GuardianAuth suporta tema claro e escuro automaticamente. O tema será sincronizado com as preferências do sistema do usuário, mas também pode ser alterado manualmente através do botão de tema que é exibido automaticamente.
+
+## 🌟 Recursos
+
+- ✨ Design moderno e responsivo
+- 🌓 Suporte a tema claro/escuro
+- 📱 Layout otimizado para mobile
+- 🔒 Rotas protegidas automáticas
+- 🎨 Altamente personalizável
+- 🚀 Fácil de integrar
+- 🔄 Gerenciamento de estado de autenticação
+- 📝 Formulários validados
+- 🌐 Suporte a internacionalização (pt-BR)
+
+## 🛠️ Exemplo Completo
 
 ```jsx
-import { useTheme, THEMES } from 'guardian-auth-react'
+import { GuardianAuth } from 'guardian-auth-narak';
+import 'guardian-auth-narak/dist/guardian-auth.css';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
-function MeuComponente() {
-  const { theme, toggleTheme } = useTheme()
-  
+function App() {
   return (
-    <div>
-      <p>Tema atual: {theme === THEMES.DARK ? 'Escuro' : 'Claro'}</p>
-      <button onClick={toggleTheme}>Alternar Tema</button>
-    </div>
-  )
+    <Router>
+      <GuardianAuth
+        config={{
+          appName: 'Minha Aplicação',
+          logo: '/caminho/para/logo.png',
+          primaryColor: '#4F46E5',
+          loginPath: '/login',
+          homePath: '/',
+        }}
+      >
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/perfil" element={<Profile />} />
+        </Routes>
+      </GuardianAuth>
+    </Router>
+  );
 }
+
+export default App;
 ```
 
-## Personalização
+## 📄 Licença
 
-O GuardianAuth é projetado para se adaptar ao estilo da sua aplicação. Você pode personalizar a aparência por meio de CSS ou através das opções de configuração.
-
-## Contribuição
-
-Contribuições são bem-vindas! Por favor, abra uma issue para discutir mudanças importantes antes de criar um pull request.
-
-## Licença
-
-MIT © [Seu Nome](https://github.com/seuusuario) 
+MIT © [Seu Nome] 
