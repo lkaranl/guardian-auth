@@ -1,6 +1,7 @@
 /* Importar variáveis do sistema de design */
 @import './GuardianAuthStyles.css';
 
+/* Estilos para as páginas de autenticação */
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(10px); }
   to { opacity: 1; transform: translateY(0); }
