@@ -68,7 +68,7 @@
   left: 0;
   right: 0;
   height: 8px;
-  background: linear-gradient(90deg, var(--primary) 0%, var(--primary-hover) 100%);
+  background: linear-gradient(90deg, var(--primary) 0%, var(--secondary) 100%);
   border-radius: 24px 24px 0 0;
 }
 
@@ -118,7 +118,7 @@ h3 {
 
 .login-description {
   text-align: center;
-  color: var(--muted);
+  color: var(--text-secondary);
   line-height: 1.6;
   margin-bottom: 2rem;
   font-size: 1.05rem;
@@ -145,17 +145,18 @@ h3 {
 .feature-icon {
   font-size: 1.4rem;
   margin-right: 1rem;
+  color: var(--accent);
 }
 
 .feature-text {
   font-weight: 500;
-  color: var(--text);
+  color: var(--text-secondary);
 }
 
 .form-section {
   margin-bottom: 2.5rem;
   padding-bottom: 2rem;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  border-bottom: 1px solid var(--border);
 }
 
 .form-group {
@@ -331,6 +332,11 @@ input:disabled {
   animation: fadeIn 0.3s ease-out;
 }
 
+[data-theme="dark"] .error-message {
+  background-color: rgba(239, 68, 68, 0.15);
+  color: var(--error);
+}
+
 .success-message {
   background-color: rgba(34, 197, 94, 0.1);
   color: var(--success);
@@ -343,13 +349,18 @@ input:disabled {
   animation: fadeIn 0.3s ease-out;
 }
 
+[data-theme="dark"] .success-message {
+  background-color: rgba(34, 197, 94, 0.15);
+  color: var(--success);
+}
+
 .auth-links {
   display: flex;
   justify-content: space-between;
   margin-top: 2rem;
   font-size: 1rem;
   padding-top: 1.5rem;
-  border-top: 1px solid rgba(0, 0, 0, 0.05);
+  border-top: 1px solid var(--border);
   animation: fadeIn 0.6s ease-out 0.6s both;
 }
 
@@ -396,7 +407,7 @@ input:disabled {
   .login-left {
     flex: 1.2;
     padding-right: 2.5rem;
-    border-right: 1px solid rgba(0, 0, 0, 0.05);
+    border-right: 1px solid var(--border);
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -619,7 +630,7 @@ input:disabled {
     padding-right: 0;
     padding-bottom: 2rem;
     border-right: none;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    border-bottom: 1px solid var(--border);
   }
   
   .login-left .auth-logo {
@@ -751,7 +762,7 @@ input:disabled {
 .caps-lock-warning {
   display: flex;
   align-items: center;
-  color: var(--warning, #f59e0b);
+  color: var(--warning);
   font-size: 0.85rem;
   margin-top: 0.5rem;
   padding: 0.5rem 0.75rem;
@@ -760,10 +771,14 @@ input:disabled {
   animation: fadeIn 0.3s ease-out;
 }
 
+[data-theme="dark"] .caps-lock-warning {
+  background-color: rgba(245, 158, 11, 0.15);
+}
+
 .caps-lock-warning svg {
   margin-right: 0.5rem;
   flex-shrink: 0;
-  color: var(--warning, #f59e0b);
+  color: var(--warning);
 }
 
 /* Estilos para Toggle Switch */
@@ -815,11 +830,11 @@ input:disabled {
 }
 
 .toggle-switch-input:focus + .toggle-switch {
-  box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.25), inset 0 1px 2px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 0 0 2px var(--primary-light), inset 0 1px 2px rgba(0, 0, 0, 0.2);
 }
 
 .toggle-switch-input:focus:checked + .toggle-switch {
-  box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.25), inset 0 1px 2px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 0 0 2px var(--primary-light), inset 0 1px 2px rgba(0, 0, 0, 0.3);
 }
 
 .toggle-switch-input:disabled + .toggle-switch {

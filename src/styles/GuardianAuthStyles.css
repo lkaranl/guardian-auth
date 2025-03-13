@@ -10,11 +10,21 @@
   /* Tema claro (padrão) */
   --primary: #6366f1;
   --primary-hover: #4f46e5;
+  --primary-light: #c7d2fe;
+  --primary-dark: #3730a3;
+  --secondary: #ec4899;
+  --secondary-hover: #db2777;
+  --secondary-light: #fbcfe8;
+  --accent: #f59e0b;
+  --accent-hover: #d97706;
   --success: #22c55e;
   --error: #ef4444;
+  --warning: #f59e0b;
+  --info: #0ea5e9;
   --background: #f8fafc;
   --card-background: #ffffff;
   --text: #1e293b;
+  --text-secondary: #334155;
   --muted: #64748b;
   --border: rgba(0, 0, 0, 0.08);
   --border-hover: rgba(0, 0, 0, 0.15);
@@ -23,15 +33,28 @@
   --shadow-color-hover: rgba(0, 0, 0, 0.12);
   --toggle-bg: rgba(0, 0, 0, 0.15);
   --toggle-shadow: rgba(0, 0, 0, 0.2);
+  --highlight-bg: rgba(99, 102, 241, 0.08);
 }
 
 /* Tema escuro */
 [data-theme="dark"] {
   --primary: #818cf8;
   --primary-hover: #6366f1;
+  --primary-light: #4338ca;
+  --primary-dark: #a5b4fc;
+  --secondary: #f472b6;
+  --secondary-hover: #ec4899;
+  --secondary-light: #db2777;
+  --accent: #fbbf24;
+  --accent-hover: #f59e0b;
+  --success: #34d399;
+  --error: #f87171;
+  --warning: #fbbf24;
+  --info: #38bdf8;
   --background: #0f172a;
   --card-background: #1e293b;
   --text: #f1f5f9;
+  --text-secondary: #cbd5e1;
   --muted: #94a3b8;
   --border: rgba(255, 255, 255, 0.1);
   --border-hover: rgba(255, 255, 255, 0.2);
@@ -40,6 +63,7 @@
   --shadow-color-hover: rgba(0, 0, 0, 0.4);
   --toggle-bg: rgba(255, 255, 255, 0.15);
   --toggle-shadow: rgba(0, 0, 0, 0.4);
+  --highlight-bg: rgba(99, 102, 241, 0.15);
 }
 
 /* Estilos básicos para o corpo da página */
