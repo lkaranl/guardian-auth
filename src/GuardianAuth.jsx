@@ -9,7 +9,6 @@ import ProtectedRoute from './components/ProtectedRoute';
 import './App.css';
 import './index.css';
 import './styles/AuthPages.css';
-import './styles/GuardianAuthStyles.css';
 import { useEffect } from 'react';
 
 /**
