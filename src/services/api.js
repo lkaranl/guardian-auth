@@ -1,10 +1,20 @@
 import axios from 'axios';
 
+const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:3000';
+
 const createApiInstance = (config = {}) => {
-  // Obter URL da API exclusivamente da variável de ambiente
+  // Detectar URL da API automaticamente com base na URL atual
+  // Se estiver em produção, assume que a API está na mesma origem
+  // Se estiver em desenvolvimento, usa localhost:3000
   const getDefaultBaseURL = () => {
-    // Usar a variável de ambiente definida no .env
-    return process.env.REACT_APP_API_URL || '';
+    if (typeof window !== 'undefined') {
+      // Em ambiente de produção, use a mesma origem
+      if (process.env.NODE_ENV === 'production') {
+        return window.location.origin;
+      }
+    }
+    // Em desenvolvimento, use localhost:3000
+    return API_URL;
   };
 
   const defaultConfig = {
