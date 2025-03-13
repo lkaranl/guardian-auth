@@ -18,36 +18,15 @@ export const AuthProvider = ({ children }) => {
     const checkAuth = async () => {
       try {
         if (authService.isAuthenticated()) {
-          // Adicionando verificação do tipo de conteúdo da resposta
-          const apiUrl = process.env.REACT_APP_API_URL || ''; // Configure essa variável de ambiente
-          const response = await fetch(`${apiUrl}/auth/profile`, {
-            headers: {
-              'Accept': 'application/json',
-              'Content-Type': 'application/json',
-              'Authorization': `Bearer ${authService.getToken()}`
-            }
-          });
+          const userData = await authService.getProfile();
           
-          // Verificar o tipo de conteúdo da resposta
-          const contentType = response.headers.get('content-type');
-          if (!contentType || !contentType.includes('application/json')) {
-            console.error('Resposta não é JSON:', await response.text());
-            throw new Error('Resposta do servidor não é JSON válido');
-          }
-
-          if (!response.ok) {
-            throw new Error(`Erro ${response.status}: ${response.statusText}`);
-          }
-          
-          const data = await response.json();
-          
-          if (data.success) {
+          if (userData.success) {
             setUser({
-              ...data.user,
+              ...userData.user,
               authenticated: true
             });
           } else {
-            throw new Error(data.message || 'Erro ao carregar perfil do usuário');
+            throw new Error(userData.message || 'Erro ao carregar perfil do usuário');
           }
         }
       } catch (err) {
@@ -79,33 +58,20 @@ export const AuthProvider = ({ children }) => {
 
       // Verificar se o login foi bem-sucedido
       if (response.success) {
-        const userResponse = await fetch('/auth/profile', {
-          headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${authService.getToken()}`
+        try {
+          const userData = await authService.getProfile();
+          
+          if (userData.success) {
+            setUser({
+              ...userData.user,
+              authenticated: true
+            });
+          } else {
+            throw new Error(userData.message || 'Erro ao carregar perfil do usuário');
           }
-        });
-
-        // Verificar o tipo de conteúdo da resposta
-        const contentType = userResponse.headers.get('content-type');
-        if (!contentType || !contentType.includes('application/json')) {
-          throw new Error('Resposta do servidor não é JSON válido');
-        }
-
-        if (!userResponse.ok) {
-          throw new Error(`Erro ${userResponse.status}: ${userResponse.statusText}`);
-        }
-
-        const userData = await userResponse.json();
-
-        if (userData.success) {
-          setUser({
-            ...userData.user,
-            authenticated: true
-          });
-        } else {
-          throw new Error(userData.message || 'Erro ao carregar perfil do usuário');
+        } catch (err) {
+          console.error('Erro ao obter perfil após login:', err);
+          throw err;
         }
       } else {
         throw new Error(response.message || 'Falha na autenticação');

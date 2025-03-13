@@ -134,6 +134,28 @@ const authService = {
     } catch (error) {
       throw error.response ? error.response.data : error;
     }
+  },
+
+  // Obter dados do perfil do usuário
+  getProfile: async () => {
+    try {
+      const token = authService.getToken();
+      
+      if (!token) {
+        throw new Error('Token não encontrado');
+      }
+      
+      const response = await api.get('/auth/profile', {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      });
+      
+      return response.data;
+    } catch (error) {
+      console.error('Erro ao obter perfil:', error);
+      throw error;
+    }
   }
 };
 
