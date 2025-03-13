@@ -46,7 +46,9 @@
   max-width: 900px;
   width: 100%;
   transform: translateY(0);
-  transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+  transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), 
+              box-shadow 0.4s ease, 
+              background-color 0.3s ease;
   position: relative;
   overflow: hidden;
   animation: fadeIn 0.6s ease-out;
@@ -71,12 +73,12 @@
 }
 
 .auth-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 30px 60px var(--shadow-color-hover), 0 0 0 1px rgba(0, 0, 0, 0.01);
+  transform: translateY(-3px);
+  box-shadow: 0 25px 50px var(--shadow-color-hover), 0 0 0 1px rgba(0, 0, 0, 0.01);
 }
 
 [data-theme="dark"] .auth-card:hover {
-  box-shadow: 0 30px 60px var(--shadow-color-hover), 0 0 0 1px rgba(255, 255, 255, 0.05);
+  box-shadow: 0 25px 50px var(--shadow-color-hover), 0 0 0 1px rgba(255, 255, 255, 0.05);
 }
 
 .register-card {
